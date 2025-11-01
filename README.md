@@ -31,8 +31,7 @@ git commit -m "Initial commit - FLE+ trilingual site"
 ### 2. Pousser sur GitHub
 
 ```bash
-# Remplacer [votre-username] par votre nom d'utilisateur GitHub
-git remote add origin https://github.com/[votre-username]/fle-plus.git
+git remote add origin https://github.com/princlili/fle-plus.git
 git branch -M main
 git push -u origin main
 ```
@@ -44,15 +43,15 @@ git push -u origin main
 3. Dossier: laisser **/ (root)**
 4. Cliquer sur **Save**
 
-Le site sera accessible à : `https://[votre-username].github.io/fle-plus/`
+Le site sera accessible à : `https://princlili.github.io/fle-plus/`
 
 ## Personnalisation
 
 ### Modifier les liens GitHub
 
 Dans chaque fichier HTML (fr/index.html, en/index.html, de/index.html), remplacer :
-- `[votre-username]` par votre nom d'utilisateur GitHub
-- `[Votre email à ajouter]` par votre adresse email
+- `princlili` par votre nom d'utilisateur GitHub
+- `pr.vaucher@gmail.com` par votre adresse email
 
 ### Modifier les couleurs
 

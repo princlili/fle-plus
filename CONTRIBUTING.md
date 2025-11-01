@@ -55,7 +55,7 @@ Un formulaire Google sera bientôt disponible pour soumettre des contributions s
 
 ### Option 3 : Par email
 
-Contactez directement : [votre-email@example.com]
+Contactez directement : pr.vaucher@gmail.com
 
 ## Directives
 
@@ -112,4 +112,4 @@ Les comportements inappropriés (harcèlement, insultes, discrimination) ne sero
 
 ---
 
-Merci de contribuer à faire évoluer l'enseignement du FLE ! 🚀
+Merci de contribuer à faire évoluer l'enseignement du FLE !
