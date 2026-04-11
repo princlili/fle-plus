@@ -1,28 +1,35 @@
-# Contribuer à FLE+
+# Contributing to FLE+
 
-FLE+ est un projet ouvert. Il se construit lentement, depuis le terrain.
+FLE+ builds slowly, from the ground up.
+It is not a project to complete — it is a project to inhabit.
 
-## Ce qu'on accueille
+## What we welcome
 
-- Des observations de terrain, anonymisées — ce qui a fonctionné, ce qui a échoué
-- Des séquences ou activités testées, avec leur contexte
-- Des critiques constructives de l'approche
-- Des corrections ou améliorations du site
+- **Terrain** entries: classroom fragments, anonymized, without editorializing
+- **Sources** entries: what shifted something — a reading, a reference, a frame
+- **Questions**: what resists, what we don't yet understand
+- Corrections or improvements to the site
 
-## Comment contribuer
+## What we don't welcome
 
-**Via GitHub** — fork, branche, pull request. Privilégiez des messages de commit clairs.
+Ready-made methods. Definitive answers.
+This project documents what resists as much as what works.
 
-**Par email** — pr.vaucher@gmail.com — si GitHub n'est pas votre espace naturel.
+## How to contribute
 
-## Quelques principes
+**Via GitHub** — fork, branch, pull request.
+Clear commit messages; one idea per commit.
 
-Soyez honnête sur les échecs autant que sur les réussites.  
-Documentez le contexte : niveau, âge, situation.  
-Citez vos sources si vous vous appuyez sur d'autres travaux.  
-Respectez les personnes observées : anonymisez systématiquement.
+**By email** — pr.vaucher@gmail.com — if GitHub is not your natural space.
 
-## Licence
+## A few principles
 
-Contenu sous CC BY-SA 4.0 — code sous MIT.  
-Vous serez crédité sauf demande contraire.
+Be honest about failures as much as successes.
+Document the context: level, age, institutional situation.
+Anonymize the people you observe, systematically.
+Cite your sources if you draw on others' work.
+
+## License
+
+Content under [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) — code under MIT.
+You will be credited unless you request otherwise.
