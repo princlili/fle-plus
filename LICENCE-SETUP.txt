@@ -1,21 +1,21 @@
-# Legal setup — FLE+
+Legal setup — FLE+
 
-## Licenses in place
+LICENSES IN PLACE
 
-**Content (CC BY-SA 4.0)** — texts, observations, approaches
+Content (CC BY-SA 4.0) — texts, observations, approaches
 Free to use and adapt, with attribution, under the same license.
 
-**Code (MIT)** — HTML, CSS, JavaScript
+Code (MIT) — HTML, CSS, JavaScript
 Free to use without restriction, with simple attribution.
 
-## What this means in practice
+WHAT THIS MEANS IN PRACTICE
 
 - Nobody can claim ownership of this work
 - Teachers and researchers can use it freely, with attribution
 - Adaptations must remain open under the same terms
 
-## Files
+FILES
 
-- `LICENSE.md` — CC BY-SA 4.0 (content)
-- `LICENSE-CODE.md` — MIT (code)
-- `CONTRIBUTING.md` — contribution guidelines
+LICENSE.md       — CC BY-SA 4.0 (content)
+LICENSE-CODE.md  — MIT (code)
+CONTRIBUTING.md  — contribution guidelines
