@@ -1,45 +1,21 @@
-# ✅ Protection juridique complète pour FLE+
+# Legal setup — FLE+
 
-## Fichiers ajoutés
+## Licenses in place
 
-1. **LICENSE.md** - Licence CC BY-SA 4.0 pour le contenu pédagogique
-2. **LICENSE-CODE.md** - Licence MIT pour le code source
-3. **CONTRIBUTING.md** - Guide pour les contributeurs
-4. **README.md** - Section licence ajoutée
-5. **Footers HTML** - Badges de licence dans les 3 versions linguistiques
+**Content (CC BY-SA 4.0)** — texts, observations, approaches
+Free to use and adapt, with attribution, under the same license.
 
-## Ce qui est maintenant protégé
+**Code (MIT)** — HTML, CSS, JavaScript
+Free to use without restriction, with simple attribution.
 
-### ✅ Contenu pédagogique (CC BY-SA 4.0)
-- Les textes, ressources, approches
-- Utilisation et modification libres
-- Attribution obligatoire
-- Partage sous même licence (copyleft)
+## What this means in practice
 
-### ✅ Code source (MIT)
-- HTML, CSS, JavaScript
-- Usage libre sans restriction
-- Attribution simple requise
+- Nobody can claim ownership of this work
+- Teachers and researchers can use it freely, with attribution
+- Adaptations must remain open under the same terms
 
-## Actions à faire
+## Files
 
-1. **Personnaliser** les fichiers :
-   - Remplacer `[Votre Nom]` par votre nom dans LICENSE-CODE.md
-   - Remplacer `[votre-email@example.com]` dans CONTRIBUTING.md
-
-2. **Commit et push** :
-   ```bash
-   git add LICENSE.md LICENSE-CODE.md CONTRIBUTING.md
-   git commit -m "Add licenses and contribution guidelines"
-   git push
-   ```
-
-3. **C'est tout** ! Ton projet est maintenant légalement protégé.
-
-## Résumé juridique en 3 points
-
-1. **Personne ne peut s'approprier ton travail** - Le copyleft l'empêche
-2. **Les profs peuvent l'utiliser librement** - Avec attribution
-3. **Les améliorations restent ouvertes** - Grâce au Share-Alike
-
-Tu peux maintenant développer sereinement. La protection est en place. 🛡️
+- `LICENSE.md` — CC BY-SA 4.0 (content)
+- `LICENSE-CODE.md` — MIT (code)
+- `CONTRIBUTING.md` — contribution guidelines
