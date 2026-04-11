@@ -1,13 +1,17 @@
-# FLE+
+# FLE+ Initiative
+
+**L'humain d'abord, la langue ensuite.**
+
+🔗 [fle-plus sur GitHub Pages](https://princlili.github.io/fle-plus/fr/)
+
+---
 
 FLE+ is an approach to teaching French as a foreign language,
 built from observation of real learners in real situations.
-
 It does not start from levels (A1, B2...), but from a simpler question:
 what can this language offer someone who doesn't love it yet?
 
 ## What FLE+ is not
-
 - A ready-made curriculum
 - A method to apply
 - A definitive answer
@@ -16,10 +20,8 @@ what can this language offer someone who doesn't love it yet?
 
 FLE+ starts from the conviction that language is learned through action —
 not through correction, not through performance.
-
 Learners — in classrooms, workshops, or elsewhere — tend to engage more
 deeply when:
-
 - they have a real problem to solve together
 - mistakes are part of the process, without penalty
 - French serves something that goes beyond the grade
@@ -32,7 +34,6 @@ in a language you barely master?
 This is not a school exercise. It is a practice of transformation.
 
 ## Core principles (in progress)
-
 - Genuine collaboration, not simulated
 - Long-term projects rooted in real challenges
 - Usefulness, even for those who don't like French
@@ -46,3 +47,6 @@ Patterns, failures, adjustments, surprises.
 No claim to universality. A claim to honesty.
 
 This project builds slowly, from the ground up.
+
+## License
+Content: [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) · Code: MIT
