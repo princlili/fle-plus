@@ -1,20 +1,31 @@
 /* ==========================================
    FLE+ Initiative — styles.css
-   Basé sur Josefin Sans + Lora · Palette chaude
+   Josefin Sans + Lora · Palette chaude
+   Responsive · Accessibilité WCAG AA
    ========================================== */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
     --walnut:  #4A3424;
-    --ochre:   #B6841C;
-    --sage:    #5E6C4E;
+    --ochre:   #8B6010;   /* assombri pour contraste WCAG AA sur --cream */
+    --sage:    #4A5A3C;
     --warm:    #E8E2D4;
     --cream:   #EDE8DC;
     --line:    #BEAA82;
     --red:     #AC4426;
     --text:    #2A1F14;
-    --muted:   #7A6A58;
+    --muted:   #5A4A38;   /* assombri pour lisibilité */
+
+    --fs-base: clamp(1rem, 1.1vw + 0.6rem, 1.2rem);
+    --fs-sm:   clamp(0.8rem, 0.9vw + 0.5rem, 0.95rem);
+    --fs-xs:   clamp(0.7rem, 0.8vw + 0.4rem, 0.85rem);
+    --fs-lg:   clamp(1.1rem, 1.2vw + 0.7rem, 1.35rem);
+    --fs-xl:   clamp(1.3rem, 1.8vw + 0.8rem, 1.7rem);
+
+    --max:     860px;
+    --pad-h:   clamp(1.2rem, 5vw, 3.5rem);
+    --pad-v:   clamp(1.5rem, 4vw, 3rem);
 }
 
 body.dark {
@@ -26,15 +37,34 @@ body.dark {
     --line:    #4A3E2C;
     --red:     #D4705A;
     --text:    #E8DDD0;
-    --muted:   #8A7A6A;
+    --muted:   #A89A88;
 }
+
+/* ==========================================
+   BASE
+   ========================================== */
 
 body {
     font-family: 'Lora', Georgia, serif;
     background: var(--cream);
     color: var(--text);
-    font-size: 10.5pt;
-    line-height: 1.6;
+    font-size: var(--fs-base);
+    line-height: 1.7;
+}
+
+/* Focus visible pour navigation clavier */
+:focus-visible {
+    outline: 3px solid var(--ochre);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+/* Réduction de mouvement pour accessibilité */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+    }
 }
 
 /* ==========================================
@@ -42,13 +72,9 @@ body {
    ========================================== */
 
 .wrapper {
-    max-width: 720px;
+    max-width: var(--max);
     margin: 0 auto;
-    padding: 2.5cm 2.5cm 2cm;
-}
-
-@media (max-width: 600px) {
-    .wrapper { padding: 1.5rem 1rem 2rem; }
+    padding: var(--pad-v) var(--pad-h) calc(var(--pad-v) * 1.5);
 }
 
 /* ==========================================
@@ -63,17 +89,24 @@ body {
     border: 1px solid var(--line);
     color: var(--muted);
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 8pt;
+    font-size: var(--fs-xs);
     font-weight: 600;
     letter-spacing: .1em;
     text-transform: uppercase;
-    padding: 5px 10px;
+    padding: 6px 12px;
     cursor: pointer;
     border-radius: 2px;
-    transition: background .2s, color .2s;
+    transition: color .2s, border-color .2s;
+    /* zone de clic accessible */
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.theme-toggle:hover { color: var(--walnut); border-color: var(--walnut); }
+.theme-toggle:hover,
+.theme-toggle:focus-visible { color: var(--walnut); border-color: var(--walnut); }
 
 @media print { .theme-toggle { display: none; } }
 
@@ -84,13 +117,13 @@ body {
 .doc-header {
     border-top: 3px solid var(--walnut);
     border-bottom: 1px solid var(--line);
-    padding: 16px 0 12px;
+    padding: 20px 0 14px;
 }
 
 .doc-title {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
-    font-size: 17pt;
+    font-size: var(--fs-xl);
     color: var(--walnut);
     letter-spacing: .06em;
     text-transform: uppercase;
@@ -99,9 +132,9 @@ body {
 .doc-tagline {
     font-family: 'Lora', serif;
     font-style: italic;
-    font-size: 10pt;
+    font-size: var(--fs-base);
     color: var(--muted);
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 /* ==========================================
@@ -110,40 +143,46 @@ body {
 
 nav {
     border-bottom: 1px solid var(--line);
-    padding: 10px 0;
-    margin-bottom: 36px;
+    padding: 12px 0;
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 nav ul {
     list-style: none;
     display: flex;
-    gap: 0;
     flex-wrap: wrap;
     align-items: baseline;
+    gap: 0;
 }
 
 nav a {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 8pt;
+    font-size: var(--fs-xs);
     font-weight: 600;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--muted);
     text-decoration: none;
-    padding: 4px 14px 4px 0;
+    padding: 6px 14px 6px 0;
     display: block;
     transition: color .15s;
+    /* zone de clic accessible */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
-nav a:hover  { color: var(--walnut); }
+nav a:hover,
+nav a:focus-visible { color: var(--walnut); }
 nav a.current { color: var(--walnut); }
 
 nav .sep {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 8pt;
+    font-size: var(--fs-xs);
     color: var(--line);
     padding-right: 14px;
     user-select: none;
+    aria-hidden: true;
 }
 
 /* ==========================================
@@ -153,50 +192,56 @@ nav .sep {
 .wip {
     display: inline-block;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 7.5pt;
+    font-size: var(--fs-xs);
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--muted);
     border: 1px solid var(--line);
-    padding: 2px 7px;
-    margin-bottom: 32px;
+    padding: 3px 8px;
+    margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
 }
 
 /* ==========================================
    SECTIONS
    ========================================== */
 
-section { margin-bottom: 36px; }
+section { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
 .section-label {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 8pt;
+    font-size: var(--fs-xs);
     font-weight: 600;
     letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--ochre);
     border-bottom: 1px solid var(--ochre);
-    padding-bottom: 3px;
-    margin-bottom: 14px;
+    padding-bottom: 4px;
+    margin-bottom: 16px;
 }
 
 p { margin-bottom: 1em; }
 p:last-child { margin-bottom: 0; }
 
 strong { font-weight: 600; }
-
 em { font-style: italic; }
+
+a {
+    color: var(--walnut);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+a:hover { color: var(--ochre); }
 
 /* ==========================================
    PULL QUOTE
    ========================================== */
 
 .pull {
-    margin: 22px 0;
-    padding: 10px 0 10px 18px;
+    margin: clamp(1rem, 3vw, 1.8rem) 0;
+    padding: 12px 0 12px 20px;
     border-left: 3px solid var(--walnut);
     font-style: italic;
-    font-size: 11pt;
+    font-size: var(--fs-lg);
     line-height: 1.55;
     color: var(--walnut);
 }
@@ -206,14 +251,14 @@ em { font-style: italic; }
    ========================================== */
 
 .branches {
-    margin-top: 44px;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
     border-top: 1px solid var(--line);
-    padding-top: 22px;
+    padding-top: clamp(1rem, 3vw, 1.8rem);
 }
 
 .branches-label {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 7.5pt;
+    font-size: var(--fs-xs);
     letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--muted);
@@ -222,50 +267,47 @@ em { font-style: italic; }
 
 .branch-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-@media (max-width: 500px) {
-    .branch-grid { grid-template-columns: 1fr; }
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
 }
 
 .branch-card {
     background: var(--warm);
     border-left: 3px solid var(--line);
-    padding: 12px 14px;
+    padding: 14px 16px;
     text-decoration: none;
     display: block;
     transition: border-color .15s;
 }
 
-.branch-card:hover { border-left-color: var(--walnut); }
+.branch-card:hover,
+.branch-card:focus-visible { border-left-color: var(--walnut); }
 
 .branch-card-title {
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 600;
-    font-size: 9.5pt;
+    font-size: var(--fs-sm);
     letter-spacing: .06em;
     text-transform: uppercase;
     color: var(--walnut);
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 .branch-card-desc {
     font-family: 'Lora', serif;
     font-style: italic;
-    font-size: 9pt;
+    font-size: var(--fs-sm);
     color: var(--muted);
-    line-height: 1.45;
+    line-height: 1.5;
 }
 
 .branch-card-soon {
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 7pt;
+    font-size: var(--fs-xs);
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--line);
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 /* ==========================================
@@ -274,13 +316,28 @@ em { font-style: italic; }
 
 .doc-footer {
     border-top: 1px solid var(--line);
-    margin-top: 44px;
-    padding-top: 12px;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+    padding-top: 14px;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 8pt;
+    font-size: var(--fs-xs);
     letter-spacing: .06em;
     color: var(--muted);
 }
 
-.doc-footer a { color: var(--muted); text-decoration: none; }
+.doc-footer a {
+    color: var(--muted);
+    text-decoration: none;
+}
 .doc-footer a:hover { color: var(--walnut); }
+
+/* ==========================================
+   IMPRESSION
+   ========================================== */
+
+@media print {
+    .theme-toggle { display: none; }
+    body { background: white; color: black; font-size: 11pt; }
+    .pull { border-left-color: #000; color: #000; }
+    .branch-card { background: #f5f5f5; border-left-color: #000; }
+    a::after { content: " (" attr(href) ")"; font-size: 0.8em; }
+}
