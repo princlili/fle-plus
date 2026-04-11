@@ -1,37 +1,36 @@
-# Licence Creative Commons Attribution-ShareAlike 4.0 International
+# Creative Commons Attribution-ShareAlike 4.0 International
 
-## Contenu pédagogique (textes, ressources, approches)
+## Pedagogical content (texts, observations, approaches)
 
-Le contenu pédagogique de FLE+ Initiative est mis à disposition selon les termes de la [Licence Creative Commons Attribution - Partage dans les Mêmes Conditions 4.0 International](http://creativecommons.org/licenses/by-sa/4.0/).
+The content of FLE+ Initiative is licensed under the
+[Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
 
 ![CC BY-SA 4.0](https://licensebuttons.net/l/by-sa/4.0/88x31.png)
 
-### Vous êtes autorisé à :
+### You are free to:
 
-- **Partager** — copier, distribuer et communiquer le matériel par tous moyens et sous tous formats
-- **Adapter** — remixer, transformer et créer à partir du matériel pour toute utilisation, y compris commerciale
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material for any purpose, including commercially
 
-### Selon les conditions suivantes :
+### Under the following terms:
 
-- **Attribution** — Vous devez créditer l'Œuvre, intégrer un lien vers la licence et indiquer si des modifications ont été effectuées à l'Œuvre. Vous devez indiquer ces informations par tous les moyens raisonnables, sans toutefois suggérer que l'Offrant vous soutient ou soutient la façon dont vous avez utilisé son Œuvre.
+- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+- **ShareAlike** — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
-- **Partage dans les Mêmes Conditions** — Dans le cas où vous effectuez un remix, que vous transformez, ou créez à partir du matériel composant l'Œuvre originale, vous devez diffuser l'Œuvre modifiée dans les mêmes conditions, c'est à dire avec la même licence avec laquelle l'Œuvre originale a été diffusée.
-
-### Attribution suggérée :
+### Suggested attribution:
 
 ```
-FLE+ Initiative par [Votre Nom]
+FLE+ Initiative by Pierre Vaucher
 Licence CC BY-SA 4.0
-https://github.com/[votre-username]/fle-plus
+https://github.com/princlili/fle-plus
 ```
 
 ---
 
-## Code source (HTML, CSS, JavaScript)
+## Source code (HTML, CSS, JavaScript)
 
-Le code source de ce site web est distribué sous licence MIT (voir LICENSE-CODE.md).
+The source code of this site is distributed under the MIT license — see `LICENSE-CODE.md`.
 
 ---
 
-Pour le texte complet de la licence Creative Commons BY-SA 4.0, consultez :
-https://creativecommons.org/licenses/by-sa/4.0/legalcode.fr
+Full license text: https://creativecommons.org/licenses/by-sa/4.0/legalcode
