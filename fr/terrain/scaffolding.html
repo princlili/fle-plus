@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLE+</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Georgia', serif;
+  background: #f5f3ee;
+  color: #1a1a1a;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.container { max-width: 640px; margin: 0 auto; }
+
+header { margin-bottom: 2.5rem; border-bottom: 1px solid #ddd; padding-bottom: 1rem; }
+h1 { font-size: 1.8rem; font-weight: normal; letter-spacing: -0.02em; }
+h1 em { color: #aaa; font-style: normal; }
+.tagline { font-size: 11px; color: #999; font-family: 'Courier New', monospace; margin-top: 3px; letter-spacing: 0.06em; }
+.level-badge { display: inline-block; font-size: 10px; font-family: 'Courier New', monospace; color: #888; border: 1px solid #ddd; border-radius: 20px; padding: 2px 10px; margin-top: 6px; letter-spacing: 0.06em; }
+
+.step { background: #fff; border: 1px solid #e0dcd4; border-radius: 8px; margin-bottom: 1.25rem; overflow: hidden; transition: opacity 0.2s; }
+.step.locked { opacity: 0.35; pointer-events: none; }
+.step-header { display: flex; align-items: center; gap: 12px; padding: 0.9rem 1.25rem; border-bottom: 1px solid #f0ece6; background: #faf9f7; }
+.step-num { width: 22px; height: 22px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 11px; font-family: 'Courier New', monospace; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step.done .step-num { background: #5a8a5a; }
+.step-title { font-size: 13px; font-weight: 500; }
+.step-title-de { font-size: 11px; color: #bbb; font-family: 'Courier New', monospace; margin-top: 1px; }
+.step-body { padding: 1.25rem; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 4px; }
+.form-group.full { grid-column: 1 / -1; }
+
+label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #999; font-family: 'Courier New', monospace; }
+label span { color: #ccc; margin-left: 4px; }
+
+select, textarea {
+  background: #f9f8f6;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 14px;
+  font-family: 'Georgia', serif;
+  color: #1a1a1a;
+  width: 100%;
+  appearance: none;
+}
+select:focus, textarea:focus { outline: 2px solid #1a1a1a; outline-offset: 1px; background: #fff; }
+textarea { resize: vertical; line-height: 1.65; }
+
+.hint { font-size: 11px; color: #bbb; font-family: 'Courier New', monospace; margin-top: 5px; line-height: 1.5; }
+
+.btn-primary { width: 100%; background: #1a1a1a; color: #f5f3ee; border: none; border-radius: 4px; padding: 11px; font-size: 14px; font-family: 'Georgia', serif; cursor: pointer; margin-top: 10px; transition: background 0.15s; }
+.btn-primary:hover { background: #333; }
+.btn-primary:disabled { background: #ccc; cursor: not-allowed; }
+
+.btn-observe { background: none; border: none; font-size: 12px; font-family: 'Courier New', monospace; color: #bbb; cursor: pointer; padding: 6px 0; margin-top: 6px; text-decoration: underline; text-underline-offset: 3px; display: block; transition: color 0.15s; }
+.btn-observe:hover { color: #888; }
+.btn-observe:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-secondary { background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 8px 14px; font-size: 13px; font-family: 'Georgia', serif; cursor: pointer; color: #333; transition: background 0.15s; }
+.btn-secondary:hover { background: #f5f3ee; }
+
+.anchors { margin-bottom: 0.75rem; }
+.anchor-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0ece6; font-size: 14px; line-height: 1.55; align-items: flex-start; }
+.anchor-item:last-child { border-bottom: none; }
+.anchor-label { font-size: 10px; font-family: 'Courier New', monospace; color: #ccc; text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; padding-top: 2px; min-width: 80px; }
+.anchor-content { color: #1a1a1a; }
+.anchor-note { font-size: 11px; color: #bbb; font-style: italic; margin-top: 2px; }
+
+.tension-reminder {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #f9f6f0;
+  border-left: 2px solid #c8a870;
+  border-radius: 0 4px 4px 0;
+  padding: 9px 12px;
+  margin-bottom: 1rem;
+  font-size: 12px;
+  color: #7a6040;
+  line-height: 1.55;
+  font-family: 'Courier New', monospace;
+}
+.tension-reminder strong { font-weight: 500; color: #5a4020; }
+
+.field-hint { font-size: 11px; color: #bbb; font-family: 'Courier New', monospace; margin-bottom: 6px; letter-spacing: 0.02em; }
+
+.observe-result { background: #f9f8f4; border-left: 2px solid #d4c870; border-radius: 0 4px 4px 0; padding: 10px 12px; margin-top: 8px; display: none; }
+.observe-result.visible { display: block; }
+.observe-title { font-size: 10px; font-family: 'Courier New', monospace; color: #bbb; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+.observe-item { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 6px; }
+.observe-item:last-child { margin-bottom: 0; }
+.observe-word { font-family: 'Courier New', monospace; color: #333; }
+.observe-alt { font-family: 'Courier New', monospace; color: #5a8a5a; }
+.observe-ok { font-size: 13px; color: #5a8a5a; }
+
+.relances-list { }
+.relance-item { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid #f0ece6; font-size: 14px; line-height: 1.55; align-items: flex-start; }
+.relance-item:last-child { border-bottom: none; }
+.relance-n { font-size: 11px; font-family: 'Courier New', monospace; color: #ccc; padding-top: 2px; flex-shrink: 0; }
+
+.note-box { border-left: 2px solid #ddd; padding: 8px 12px; font-size: 13px; color: #888; line-height: 1.6; margin-top: 1rem; font-style: italic; }
+
+.loading { text-align: center; padding: 1.25rem; color: #bbb; font-size: 11px; font-family: 'Courier New', monospace; letter-spacing: 0.05em; display: none; }
+.loading.visible { display: block; }
+.error { background: #fff0f0; border: 1px solid #f0c0c0; border-radius: 4px; padding: 10px 12px; font-size: 13px; color: #c0392b; margin-top: 10px; display: none; }
+.error.visible { display: block; }
+
+.actions-row { display: flex; gap: 8px; margin-top: 1rem; }
+
+.card-btn { width: 100%; background: #2d5a2d; color: #fff; border: none; border-radius: 4px; padding: 11px; font-size: 14px; font-family: 'Georgia', serif; cursor: pointer; margin-top: 1rem; transition: background 0.15s; }
+.card-btn:hover { background: #3a7a3a; }
+
+.overlay { position: fixed; inset: 0; background: #1a2e1a; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 3rem 2rem; z-index: 100; text-align: center; }
+.overlay.visible { display: flex; }
+.overlay-rules { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.75rem; }
+.overlay-rule { font-size: clamp(1rem, 3vw, 1.3rem); color: #a8d4a8; line-height: 1.4; }
+.overlay-rule-de { font-size: clamp(0.75rem, 2vw, 0.9rem); color: #5a8a5a; font-family: 'Courier New', monospace; margin-top: -2px; margin-bottom: 4px; }
+.overlay-situation { font-size: clamp(1.2rem, 3.5vw, 1.9rem); color: #fff; font-style: italic; max-width: 560px; line-height: 1.55; margin: 0.5rem 0 1rem; padding: 1.25rem 1.75rem; border: 1px solid #3a6a3a; border-radius: 8px; background: rgba(255,255,255,0.04); }
+.overlay-contrainte { font-size: clamp(0.85rem, 2.5vw, 1rem); color: #7ab47a; font-family: 'Courier New', monospace; margin-bottom: 1rem; display: none; }
+.overlay-timer { font-size: clamp(1.6rem, 4vw, 2.2rem); color: #3a6a3a; font-family: 'Courier New', monospace; margin-top: 0.75rem; letter-spacing: 0.05em; }
+.overlay-timer.urgent { color: #c8a060; }
+.overlay-close { position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: 1px solid #3a6a3a; color: #5a8a5a; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 11px; font-family: 'Courier New', monospace; }
+.overlay-close:hover { background: rgba(255,255,255,0.05); }
+
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e0dcd4; font-size: 11px; color: #bbb; font-family: 'Courier New', monospace; line-height: 1.8; }
+footer a { color: #bbb; text-decoration: underline; text-underline-offset: 3px; }
+
+@media print {
+  body { background: white; padding: 0; }
+  .btn-primary, .btn-secondary, .btn-observe, .actions-row, .card-btn,
+  header, .step-header, .form-grid, .hint, .field-hint, .tension-reminder,
+  .observe-result, .overlay, footer { display: none !important; }
+  .step { border: 1px solid #ccc; break-inside: avoid; }
+  .step.locked { opacity: 1; pointer-events: auto; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>FLE<em>+</em></h1>
+    <p class="tagline">scaffolding oral — dialogue entre apprenants / mündlicher Dialog</p>
+    <span class="level-badge">A1− · A1 · A1+</span>
+  </header>
+
+  <!-- ÉTAPE 1 -->
+  <div class="step" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Configurer + idée brute</div>
+        <div class="step-title-de">Konfigurieren + Rohidee</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Niveau <span>Niveau</span></label>
+          <select id="niveau">
+            <option value="A1-">A1−</option>
+            <option value="A1" selected>A1</option>
+            <option value="A1+">A1+</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Durée <span>Dauer</span></label>
+          <select id="duree">
+            <option value="3">3 min</option>
+            <option value="5" selected>5 min</option>
+            <option value="8">8 min</option>
+            <option value="10">10 min</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Groupe <span>Gruppe</span></label>
+          <select id="groupe">
+            <option value="dyade (2 élèves)" selected>Dyade — 2</option>
+            <option value="trio (3 élèves)">Trio — 3</option>
+            <option value="quatuor (4 élèves)">Quatuor — 4</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Type <span>Typ</span></label>
+          <select id="type">
+            <option value="choix binaire (A ou B)" selected>Choix binaire</option>
+            <option value="narration d'un souvenir court">Souvenir</option>
+            <option value="description d'une image imaginaire">Image imaginaire</option>
+            <option value="objet personnel montré ou décrit">Objet personnel</option>
+            <option value="situation hypothétique simple">Hypothétique</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Contrainte <span>Gesprächsregel (optional)</span></label>
+          <select id="contrainte">
+            <option value="">Aucune / Keine</option>
+            <option value="chaque élève pose au moins une question">Chaque élève pose une question</option>
+            <option value="interdit de dire oui ou non">Interdit : oui / non</option>
+            <option value="continuer la phrase de l'autre">Continuer la phrase précédente</option>
+            <option value="utiliser un mot nouveau de la semaine">Un mot nouveau de la semaine</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Votre idée brute <span>Rohidee</span></label>
+          <textarea id="micro" rows="3"
+            placeholder="Ce que vous avez en tête — imparfait, trop complexe, peu importe. Ex: ta mère est très malade mais tu as un rendez-vous avec tes amis..."
+            oninput="checkMicro()"></textarea>
+          <p class="hint">Écrivez librement — l'outil structure, vous reformulez.<br>Frei schreiben — das Tool strukturiert, Sie formulieren um.</p>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn1" onclick="genererAnchors()" disabled>
+        Analyser l'idée / Idee analysieren
+      </button>
+      <div class="loading" id="load1">analyse...</div>
+      <div class="error" id="err1"></div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="step locked" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Reformuler</div>
+        <div class="step-title-de">Umformulieren — 1–2 Sätze · tu · Präsens</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="anchors" id="anchors"></div>
+
+      <div class="tension-reminder">
+        <span>→</span>
+        <div>
+          <strong>Gardez la tension émotionnelle — simplifiez seulement la langue.</strong><br>
+          Ce qui fait parler les élèves, c'est le dilemme, pas la grammaire.<br>
+          <span style="color:#a08060;">Emotionale Spannung behalten — nur die Sprache vereinfachen.</span>
+        </div>
+      </div>
+
+      <div class="field-hint">1–2 phrases · tu · verbe simple au présent</div>
+      <textarea id="situation-input" rows="3"
+        placeholder="Votre situation reformulée..."
+        oninput="onSituationInput()"></textarea>
+
+      <button class="btn-observe" id="btnObserve" onclick="observer()" disabled>
+        une observation sur le niveau? →
+      </button>
+      <div class="loading" id="loadObs" style="padding:0.5rem; text-align:left; font-size:11px;">lecture...</div>
+      <div class="observe-result" id="observeResult"></div>
+
+      <button class="btn-primary" id="btn2" onclick="genererRelances()" disabled>
+        Générer les relances / Rückfragen generieren
+      </button>
+      <div class="loading" id="load2">génération...</div>
+      <div class="error" id="err2"></div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="step locked" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Relances</div>
+        <div class="step-title-de">Rückfragen — si le dialogue s'essouffle</div>
+      </div>
+    </div>
+    <div class="step-body">
+      <div class="relances-list" id="relances"></div>
+      <div class="note-box" id="note"></div>
+      <div class="actions-row">
+        <button class="btn-secondary" onclick="genererRelances()">Régénérer</button>
+        <button class="btn-secondary" onclick="window.print()">Imprimer</button>
+      </div>
+      <button class="card-btn" onclick="projeterCarte()">
+        ▶ Projeter la carte élèves / Schülerkarte anzeigen
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    FLE+ — open source · <a href="https://github.com" target="_blank">github.com</a><br>
+    Outil pédagogique pour l'enseignement du français langue étrangère · A1
+  </footer>
+</div>
+
+<!-- CARTE ÉLÈVES -->
+<div class="overlay" id="overlay">
+  <button class="overlay-close" onclick="fermerCarte()">✕ fermer</button>
+  <div class="overlay-rules">
+    <div class="overlay-rule">Parlez entre vous.</div>
+    <div class="overlay-rule-de">Sprecht miteinander.</div>
+    <div class="overlay-rule">Les erreurs sont normales — continuez.</div>
+    <div class="overlay-rule-de">Fehler sind normal — redet weiter.</div>
+    <div class="overlay-rule">L'enseignant n'est pas là pour corriger.</div>
+    <div class="overlay-rule-de">Die Lehrperson korrigiert jetzt nicht.</div>
+  </div>
+  <div class="overlay-situation" id="overlay-situation"></div>
+  <div class="overlay-contrainte" id="overlay-contrainte"></div>
+  <div class="overlay-timer" id="timer"></div>
+</div>
+
+<script>
+let timerInterval = null;
+
+function checkMicro() {
+  document.getElementById('btn1').disabled =
+    document.getElementById('micro').value.trim().length < 8;
+}
+
+function onSituationInput() {
+  const val = document.getElementById('situation-input').value.trim();
+  const ok = val.length >= 6;
+  document.getElementById('btn2').disabled = !ok;
+  document.getElementById('btnObserve').disabled = !ok;
+  document.getElementById('observeResult').classList.remove('visible');
+}
+
+async function callAPI(prompt, loadId, errId) {
+  document.getElementById(loadId).classList.add('visible');
+  if (errId) document.getElementById(errId).classList.remove('visible');
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 700,
+        messages: [{ role: "user", content: prompt }]
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message);
+    const text = data.content.find(b => b.type === "text")?.text || "";
+    return JSON.parse(text.replace(/```json|```/g, "").trim());
+  } catch(e) {
+    if (errId) {
+      document.getElementById(errId).textContent = "Erreur : " + e.message;
+      document.getElementById(errId).classList.add('visible');
+    }
+    return null;
+  } finally {
+    document.getElementById(loadId).classList.remove('visible');
+  }
+}
+
+async function genererAnchors() {
+  const niveau = document.getElementById('niveau').value;
+  const type = document.getElementById('type').value;
+  const micro = document.getElementById('micro').value.trim();
+  const contrainte = document.getElementById('contrainte').value;
+
+  document.getElementById('btn1').disabled = true;
+
+  const prompt = `Tu es expert en didactique FLE pour adolescents (A1, contexte suisse alémanique, 15-19 ans).
+
+Un enseignant a cette idée brute pour un dialogue oral entre élèves :
+"${micro}"
+
+Décompose-la en 2 éléments pour aider l'enseignant à reformuler.
+Reste très proche de l'idée originale. Bref et concret.
+Important : identifie et préserve la tension émotionnelle ou le dilemme de l'idée originale — c'est ce qui fait parler les élèves.
+Type visé : ${type}. Niveau : ${niveau}.${contrainte ? ` Contrainte prévue : "${contrainte}".` : ""}
+
+Réponds UNIQUEMENT en JSON valide :
+{
+  "anchors": [
+    {"label": "Le noyau", "content": "...", "note": "..."},
+    {"label": "Ce qui force à parler", "content": "...", "note": "..."}
+  ]
+}`;
+
+  const data = await callAPI(prompt, 'load1', 'err1');
+  document.getElementById('btn1').disabled = false;
+  if (!data) return;
+
+  const el = document.getElementById('anchors');
+  el.innerHTML = '';
+  data.anchors.forEach(a => {
+    const div = document.createElement('div');
+    div.className = 'anchor-item';
+    div.innerHTML = `
+      <div class="anchor-label">${a.label}</div>
+      <div>
+        <div class="anchor-content">${a.content}</div>
+        ${a.note ? `<div class="anchor-note">${a.note}</div>` : ''}
+      </div>`;
+    el.appendChild(div);
+  });
+
+  document.getElementById('step2').classList.remove('locked');
+  document.getElementById('step1').classList.add('done');
+  document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function observer() {
+  const situation = document.getElementById('situation-input').value.trim();
+  const niveau = document.getElementById('niveau').value;
+
+  document.getElementById('btnObserve').disabled = true;
+  document.getElementById('observeResult').classList.remove('visible');
+
+  const prompt = `Tu es un collègue enseignant de FLE, bienveillant et pragmatique.
+
+Un enseignant a formulé cette situation de départ pour un groupe ${niveau} :
+"${situation}"
+
+Donne 1 ou 2 observations légères sur le niveau de langue — pas plus.
+Signale uniquement ce qui risque vraiment de bloquer des apprenants ${niveau}.
+Ne liste pas tout. Ne corrige pas. Propose une alternative si tu en as une meilleure.
+Si la formulation est bien adaptée, dis-le simplement.
+Ton ton : collègue, pas correcteur.
+
+Réponds UNIQUEMENT en JSON valide :
+{
+  "ok": true/false,
+  "remarks": [
+    {"mot": "...", "remarque": "...", "alternative": "..."}
+  ]
+}`;
+
+  const data = await callAPI(prompt, 'loadObs', null);
+  document.getElementById('btnObserve').disabled = false;
+  if (!data) return;
+
+  const el = document.getElementById('observeResult');
+
+  if (data.ok && (!data.remarks || data.remarks.length === 0)) {
+    el.innerHTML = `<div class="observe-title">observation</div><div class="observe-ok">Ça me semble bien pour ${niveau}.</div>`;
+  } else {
+    let html = `<div class="observe-title">au passage</div>`;
+    (data.remarks || []).forEach(r => {
+      html += `<div class="observe-item">
+        ${r.mot ? `<span class="observe-word">${r.mot}</span> — ` : ''}${r.remarque}
+        ${r.alternative ? `<br><span style="font-size:11px;color:#aaa;">→ </span><span class="observe-alt">${r.alternative}</span>` : ''}
+      </div>`;
+    });
+    el.innerHTML = html;
+  }
+  el.classList.add('visible');
+}
+
+async function genererRelances() {
+  const situation = document.getElementById('situation-input').value.trim();
+  const niveau = document.getElementById('niveau').value;
+  const duree = document.getElementById('duree').value;
+  const groupe = document.getElementById('groupe').value;
+
+  document.getElementById('btn2').disabled = true;
+
+  const prompt = `Tu es expert en didactique FLE pour adolescents (contexte suisse alémanique).
+
+Situation de départ formulée par l'enseignant :
+"${situation}"
+
+Niveau : ${niveau} · Durée : ${duree} min · Groupe : ${groupe}
+
+Génère 4 relances courtes et naturelles pour relancer le dialogue si il s'arrête.
+Elles ne corrigent pas. Vocabulaire simple, présent, tutoiement.
+Note courte (1 phrase) pour l'enseignant sur comment se mettre physiquement en retrait.
+
+Réponds UNIQUEMENT en JSON valide :
+{
+  "relances": ["...", "...", "...", "..."],
+  "note": "..."
+}`;
+
+  const data = await callAPI(prompt, 'load2', 'err2');
+  document.getElementById('btn2').disabled = false;
+  if (!data) return;
+
+  const relEl = document.getElementById('relances');
+  relEl.innerHTML = '';
+  data.relances.forEach((r, i) => {
+    const div = document.createElement('div');
+    div.className = 'relance-item';
+    div.innerHTML = `<span class="relance-n">${i+1}.</span><span>${r}</span>`;
+    relEl.appendChild(div);
+  });
+
+  document.getElementById('note').textContent = data.note;
+  document.getElementById('step3').classList.remove('locked');
+  document.getElementById('step2').classList.add('done');
+  document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function projeterCarte() {
+  const situation = document.getElementById('situation-input').value.trim();
+  const contrainte = document.getElementById('contrainte').value;
+  const duree = parseInt(document.getElementById('duree').value);
+
+  document.getElementById('overlay-situation').textContent = situation || "—";
+  const cEl = document.getElementById('overlay-contrainte');
+  if (contrainte) { cEl.textContent = "Règle : " + contrainte; cEl.style.display = 'block'; }
+  else { cEl.style.display = 'none'; }
+
+  document.getElementById('overlay').classList.add('visible');
+  startTimer(duree * 60);
+}
+
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  let remaining = seconds;
+  const el = document.getElementById('timer');
+  function update() {
+    const m = Math.floor(remaining / 60);
+    const s = remaining % 60;
+    el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    el.className = 'overlay-timer' + (remaining <= 60 ? ' urgent' : '');
+    if (remaining <= 0) { clearInterval(timerInterval); el.textContent = "Temps écoulé / Zeit ist um"; }
+    remaining--;
+  }
+  update();
+  timerInterval = setInterval(update, 1000);
+}
+
+function fermerCarte() {
+  clearInterval(timerInterval);
+  document.getElementById('overlay').classList.remove('visible');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') fermerCarte(); });
+</script>
+</body>
+</html>
